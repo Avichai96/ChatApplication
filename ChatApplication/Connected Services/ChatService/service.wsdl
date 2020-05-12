@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ChatService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="ChatServiceEndpoint_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="600000" />
+          <wsrm:AcknowledgementInterval Milliseconds="200" />
+        </wsrm:RMAssertion>
+        <cdp:CompositeDuplex xmlns:cdp="http://schemas.microsoft.com/net/2006/06/duplex" />
+        <ow:OneWay xmlns:ow="http://schemas.microsoft.com/ws/2005/05/routing/policy" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IChatService_Register_InputMessage">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_Register_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_UnRegister_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnRegister" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_UnRegister_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnRegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_SendFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendFile" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_SendFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_MessageReceived_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MessageReceived" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_MessageReceived_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MessageReceivedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_FileReceived_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:FileReceived" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_FileReceived_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:FileReceivedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ClientRegistered_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientRegistered" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ClientRegistered_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientRegisteredResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ClientUnRegistered_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientUnRegistered" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_ClientUnRegistered_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientUnRegisteredResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IChatService">
+    <wsdl:operation name="Register">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/Register" message="tns:IChatService_Register_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/RegisterResponse" message="tns:IChatService_Register_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnRegister">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/UnRegister" message="tns:IChatService_UnRegister_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/UnRegisterResponse" message="tns:IChatService_UnRegister_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/SendMessage" message="tns:IChatService_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/SendMessageResponse" message="tns:IChatService_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/SendFile" message="tns:IChatService_SendFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/SendFileResponse" message="tns:IChatService_SendFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MessageReceived">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/MessageReceived" message="tns:IChatService_MessageReceived_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/MessageReceivedResponse" message="tns:IChatService_MessageReceived_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FileReceived">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/FileReceived" message="tns:IChatService_FileReceived_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/FileReceivedResponse" message="tns:IChatService_FileReceived_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientRegistered">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/ClientRegistered" message="tns:IChatService_ClientRegistered_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/ClientRegisteredResponse" message="tns:IChatService_ClientRegistered_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientUnRegistered">
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/ClientUnRegistered" message="tns:IChatService_ClientUnRegistered_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/ClientUnRegisteredResponse" message="tns:IChatService_ClientUnRegistered_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ChatServiceEndpoint" type="tns:IChatService">
+    <wsp:PolicyReference URI="#ChatServiceEndpoint_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Register">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/Register" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnRegister">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/UnRegister" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFile">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/SendFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MessageReceived">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/MessageReceived" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileReceived">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/FileReceived" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientRegistered">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/ClientRegistered" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientUnRegistered">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/ClientUnRegistered" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ChatService">
+    <wsdl:port name="ChatServiceEndpoint" binding="tns:ChatServiceEndpoint">
+      <soap12:address location="http://127.0.0.1:8080/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://127.0.0.1:8080/</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
